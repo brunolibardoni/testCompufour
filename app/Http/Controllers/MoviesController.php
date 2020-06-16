@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
-use Illuminate\Support\Facades\Http;
 
 class MoviesController extends Controller
 {
@@ -26,13 +24,38 @@ class MoviesController extends Controller
 
     public function topRated($page)
     {
-        // getting the results data from top rated API 
-        $upcoming = Curl::to('https://api.themoviedb.org/3/movie/top_rated?api_key='.config('services.tmdb.key').'&language=en-US&page='.$page)
+        // getting the results data from top rated API
+        $topRated = Curl::to('https://api.themoviedb.org/3/movie/top_rated?api_key='.config('services.tmdb.key').'&language=en-US&page='.$page)
             ->asJson()
             ->get();
         
-        dump($upcoming['results']);
+        dump($topRated['results']);
 
     }
+
+    public function movie($id)
+    {
+        // getting the results data from movie API 
+        $movie = Curl::to('https://api.themoviedb.org/3/movie/'.$id.'?api_key='.config('services.tmdb.key').'&language=en-US')
+        ->asJson()
+        ->get();
+        
+        dump($movie);
+
+        echo 'Related Videos';
+
+        // getting the results data from related videos API 
+        $videos = Curl::to('https://api.themoviedb.org/3/movie/'.$id.'/videos?api_key='.config('services.tmdb.key').'&language=en-US')
+        ->asJson()
+        ->get();
+
+        dump($videos['results']);
+
+    }
+
+  
+    /* ------------ KISS - Keep it simple stupid  ------------ */
+
+
 
 }

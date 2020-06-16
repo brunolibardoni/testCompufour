@@ -13,10 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/upcoming/{page}','MoviesController@upcoming');
+Route::get('/toprated/{page}','MoviesController@toprated');
+Route::get('/movie/{id}','MoviesController@movie');
+
+Route::get('/genres','GenresController@index');
+Route::get('/genre/{id}','GenresController@list');
 
 
-
-
-Route::get('/upcoming/{pg}','MoviesController@upcoming');
-Route::get('/toprated/{pg}','MoviesController@toprated');
-Route::get('/movies/{movie}','MoviesController@show')->name('movies.show');
