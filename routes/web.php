@@ -13,11 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//rota para filmes upcoming
 Route::get('/upcoming/{page}','MoviesController@upcoming');
+
+//rota para filmes toprated
 Route::get('/toprated/{page}','MoviesController@toprated');
+
+//rota para informações de um único filme
 Route::get('/movie/{id}','MoviesController@movie');
 
+//rota para listar os gêneros
 Route::get('/genres','GenresController@index');
+
+//rota para filmes atrelados ao genero em parametro
 Route::get('/genre/{id}','GenresController@list');
 
 

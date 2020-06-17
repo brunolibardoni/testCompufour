@@ -18,38 +18,31 @@ class GenresController extends Controller
             ->asJson()
             ->get();
 
-        dump($genres['genres']);
+
+        foreach($genres['genres'] as $g){
+            echo $g['name'];
+            echo '<br>';
+        }
     }
 
     public function list($id)
     {
-        // getting the results data from movie API 
+        // getting the results data from popular movie API 
         $movies = Curl::to('https://api.themoviedb.org/3/movie/popular?api_key=' . config('services.tmdb.key') . '&language=en-US')
             ->asJson()
             ->get();
 
-        $genres = Curl::to('https://api.themoviedb.org/3/genre/movie/list?api_key=' . config('services.tmdb.key') . '&language=en-US')
-            ->asJson()
-            ->get();
+        //dump($movies['results']);
 
-        dump($movies['results']);
-
-        dump($genres['genres']);
-
-
-        foreach ($movies['results'] as $m) {
-            $ids_genre = $m['genre_ids'];
-            echo (json_encode($ids_genre));
-        }
-
-        
-        foreach ($genres['genres'] as $m) {
-            $ids_genre = $m['id'];
-            echo ($ids_genre);
-        }
-        
+        echo 'Filmes atrelados a este Gênero';
         echo '<br>';
-        echo var_dump($ids_genre[0]);
+        echo '<br>';
+        foreach($movies['results'] as $m){
+            if (in_array($id,$m['genre_ids'])){
+                echo $m['title'];
+                echo '<br>';
+            }
+        }
 
     }
 }
